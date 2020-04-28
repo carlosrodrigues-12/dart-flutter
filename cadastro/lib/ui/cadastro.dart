@@ -6,6 +6,32 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+  final TextEditingController _usuarioController = new TextEditingController();
+
+  final TextEditingController _senhaController = new TextEditingController();
+
+  String _bemVindo ="";
+
+  void _mostraBemVindo(){
+      setState(() {
+        if(_usuarioController.text.isNotEmpty && _senhaController.text.isNotEmpty){
+          // debugPrint(_senhaController.text);
+          _bemVindo = 'Bem vindo ${_usuarioController.text}';
+        }
+        else{
+          _bemVindo = 'Usuário Vazio';
+        }
+      });
+  }
+
+  void _cancelar(){
+    setState(() {
+      _usuarioController.clear();
+      _senhaController.clear();
+      _bemVindo = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +59,7 @@ class _CadastroState extends State<Cadastro> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _usuarioController,
                       decoration: InputDecoration(
                         hintText: "Nome",
                         border: OutlineInputBorder(
@@ -46,6 +73,7 @@ class _CadastroState extends State<Cadastro> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _senhaController,
                       decoration: InputDecoration(
                         hintText: "Senha",
                         border: OutlineInputBorder(
@@ -59,10 +87,11 @@ class _CadastroState extends State<Cadastro> {
 
                   Center(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
-                          margin: const EdgeInsets.only(left: 47.0),
-                            child: RaisedButton(onPressed: () => null,
+                            // margin: const EdgeInsets.only(left: 47.0),
+                            child: RaisedButton(onPressed: _mostraBemVindo,
                             color: Colors.white,
                             child: Text("Entrar",
                               style: TextStyle(
@@ -75,8 +104,8 @@ class _CadastroState extends State<Cadastro> {
                         ),
 
                         Container(
-                          margin: const EdgeInsets.only(left: 130.0),
-                          child: RaisedButton(onPressed: () => null,
+                          // margin: const EdgeInsets.only(left: 130.0),
+                          child: RaisedButton(onPressed: _cancelar,
                           color: Colors.white,
                           child: Text("Cancelar"),
                           ),
@@ -88,6 +117,21 @@ class _CadastroState extends State<Cadastro> {
               ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text("$_bemVindo",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 19.6,
+                      fontWeight: FontWeight.w400
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
