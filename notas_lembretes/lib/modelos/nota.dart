@@ -36,7 +36,7 @@ class Nota extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8.0),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(notaNome, style: TextStyle(color: Colors.white,
@@ -45,8 +45,10 @@ class Nota extends StatelessWidget {
           ),),
           Container(
             margin: const EdgeInsets.only(top: 5.0),
-            child: Text("Criado em $_notaDataCriado", style: TextStyle(color: Colors.white70,
-              fontSize: 12.5,
+            child: Text("$_notaDataCriado",
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 11.5,
               fontStyle: FontStyle.italic
             ),),
           )

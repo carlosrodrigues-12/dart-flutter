@@ -37,8 +37,13 @@ class _NotasLembretesState extends State<NotasLembretes> {
                 return Card(
                   color: Colors.white10,
                   child: ListTile(
-                    title: _notaLista[posicao]/* Text('Teste') */,
+                    title: _notaLista[posicao],
                     onLongPress: () => _atualizarNota(_notaLista[posicao], posicao),
+                    trailing: Listener(
+                      key: Key(_notaLista[posicao].notaNome),
+                      child: Icon(Icons.remove_circle, color: Colors.redAccent,),
+                      onPointerDown: (PointerEvent) => _apagarNota(_notaLista[posicao].id, posicao),
+                    ),
                   ),
                 );
               }
@@ -147,11 +152,14 @@ class _NotasLembretesState extends State<NotasLembretes> {
               "data" : dataFormatada(),
               "id" : notaLista.id
             });
+
             _trabalhaAtualizacao(posicao, notaLista);
             await db.atualizaNota(atualizarItem);
             
             setState(() {
-              
+              _pegarNotas();
+              _control.clear();
+              Navigator.pop(context);
             });
           },
           child: Text('Atualizar'),
@@ -173,6 +181,13 @@ class _NotasLembretesState extends State<NotasLembretes> {
       _notaLista.removeWhere((elemento) {
         _notaLista[posicao].notaNome == nota.notaNome;
       });
+    });
+  }
+
+  void _apagarNota(int id, int posicao) async {
+    await db.apagarNota(id);
+    setState(() {
+      _notaLista.removeAt(posicao);
     });
   }
 }
