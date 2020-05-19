@@ -98,12 +98,20 @@ class _NotasLembretesState extends State<NotasLembretes> {
           },
           child: Text('Salvar'),
         ),
+        FlatButton(
+          onPressed: () {
+            _control.clear();
+            Navigator.pop(context);
+          },
+          child: Text('Fechar'),
+        ),
       ],
     );
 
     showDialog(context: context, builder: (context){
       return alert;
     });
+    _control.clear();
   }
 
   void _trabalhaTexto(String text) async {
@@ -174,6 +182,7 @@ class _NotasLembretesState extends State<NotasLembretes> {
     showDialog(context: context, builder: (context){
       return alert;
     });
+    _control.clear();
   }
 
   _trabalhaAtualizacao(int posicao, Nota nota){
