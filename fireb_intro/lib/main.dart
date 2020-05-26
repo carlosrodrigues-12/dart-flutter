@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseDatabase database = FirebaseDatabase.instance;
+
 void main() {
   runApp(MyApp());
 }
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -34,9 +37,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
 
-      database.reference().child("usuario").set({"nome": "Carlos"});
+      Firestore.instance.collection('compras').document()
+      .setData(
+        {
+          'Ordem de compra': 83930,
+          'Cotação': 546987,
+          'Requisição': 548798
+        }
+      );
+
+      _counter++;
     });
   }
 
@@ -66,5 +77,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+}
+
+class Todo {
+  String key;
+  String subject;
+  bool completed;
+  String userId;
+
+  Todo(this.subject, this.userId, this.completed);
+
+  Todo.fromSnapshot(DataSnapshot snapshot) :
+    key = snapshot.key,
+    userId = snapshot.value["userId"],
+    subject = snapshot.value["subject"],
+    completed = snapshot.value["completed"];
+
+  toJson(){
+    return {
+      "userId": userId,
+      "subject": subject,
+      "completed": completed
+    };
   }
 }
