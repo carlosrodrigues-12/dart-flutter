@@ -1,9 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-final FirebaseDatabase database = FirebaseDatabase.instance;
-
+final Firestore db = Firestore.instance;
 void main() {
   runApp(MyApp());
 }
@@ -38,14 +38,67 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
 
-      Firestore.instance.collection('compras').document()
-      .setData(
-        {
-          'Ordem de compra': 83930,
-          'Cotação': 546987,
-          'Requisição': 548798
-        }
-      );
+      // Firestore.instance.collection('compras').document()
+      // .setData(
+      //   {
+      //     'Ordem de compra': 83930,
+      //     'Cotação': 546987,
+      //     'Requisição': 548798
+      //   }
+      // );
+
+      // Firestore.instance.collection('compras').getDocuments();
+
+      // Firestore.instance.collection('notas').document()
+      // .setData({
+      //   "Numero": 10196,
+      //   "Fornecedor": 13257
+      // });
+
+      // Firestore.instance.document("notas").get().then((document){
+      //   print(document['Fornecedor']);
+      // });
+
+      // db.collection('notas').document('M1AcQDoc63SKdRtqRsux')
+      // .get().then((DocumentSnapshot doc){
+      //   print(doc.data['Fornecedor'].toString());
+      // });
+
+      // Firestore.instance.collection('notas').document('notas-fiscais')
+      // .setData({
+      //   "Numero": 11196,
+      //   "Fornecedor": 14233
+      // });
+
+      // db.collection('notas').document('notas-fiscais')
+      // .get().then((DocumentSnapshot doc){
+      //   print("Numero da nota -> ${doc.data['Numero'].toString()}\n"+
+      //   "Fornecedor -> ${doc.data['Fornecedor'].toString()}\nss");
+      // });
+
+      // db.collection('notas').document('notas-fiscais')
+      // .setData({
+      //   "Numero": 456214,
+      //   "Fornecedor": 14555
+      // });
+
+      // db.collection('notas').document('notas-fiscais')
+      // .collection('notas-encerradas').document('encerradas').setData({
+      //   "Numero": 456258,
+      //   "Fornecedor": 456125
+      // });
+
+      // db.collection('notas').document('notas-fiscais').delete();
+
+      // db.collection('people').document().up
+
+      // db.collection('compras').document('fzy6YR6HshpULAd36aEe').delete();
+      // db.collection('compras').document('ilhjMkOrg58cXZL0yqwB').delete();
+
+      // database.reference().child("compras").once().then((DataSnapshot dados) {
+      //   Map<dynamic, dynamic> mapa = dados.value;
+      //   print("Valores Firebase: ${mapa.values}");
+      // });
 
       _counter++;
     });
